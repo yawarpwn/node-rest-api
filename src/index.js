@@ -2,6 +2,7 @@ import cors from 'cors'
 import express from 'express'
 import { quotationsRouter } from './routes/quotations.js'
 import { signalsRouter } from './routes/signals.js'
+import 'dotenv/config'
 
 const app = express()
 
