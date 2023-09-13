@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/quotations', quotationsRouter)
-// app.use('/signals', signalsRouter)
+app.use('/signals', signalsRouter)
 
 app.use((_, res) => {
 	res.status(404)
