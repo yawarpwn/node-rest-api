@@ -1,8 +1,8 @@
 import { QuotationModel } from '../models/quotations.js'
-
 export class QuotationController {
-  static async getAll(req, res) {
+  static async getAll(_req, res) {
     const { data, error } = await QuotationModel.getAll()
+
 
     if (error) {
       res.status(404).json({ error })
@@ -14,7 +14,7 @@ export class QuotationController {
   static async getById(req, res) {
     const { id } = req.params
     const { data, error } = await QuotationModel.getById({ id })
-    console.log({data, error})
+    console.log({ data, error })
 
     if (error) {
       res.status(404).json({

@@ -1,6 +1,7 @@
-import express from 'express'
 import cors from 'cors'
+import express from 'express'
 import { quotationsRouter } from './routes/quotations.js'
+import { signalsRouter } from './routes/signals.js'
 
 const app = express()
 
@@ -8,19 +9,21 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+
 app.get('/', (req, res) => {
-  res.status(200).end('<h1>Node App</h1>')
+	res.status(200).end('<h1>Node App</h1>')
 })
 
 app.use('/quotations', quotationsRouter)
+app.use('/signals', signalsRouter)
 
 app.use((_, res) => {
-  res.status(404)
-  res.end('Not Found')
+	res.status(404)
+	res.end('Not Found')
 })
 
-const PORT = process.env.PORT ?? 3000 
+const PORT = process.env.PORT ?? 3000
 
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`)
+	console.log(`Server running at http://localhost:${PORT}`)
 })
