@@ -10,4 +10,19 @@ export class SignalController {
 
     res.status(200).json(data)
   }
+
+  static async create(req, res) {
+    const { body, files } = req
+    const { data, error } = await SignalModel.create({ body, files } )
+
+    if (error) {
+      res.status(400).json({
+        error,
+      })
+
+      return
+    }
+
+    res.status(201).json(data)
+  }
 }

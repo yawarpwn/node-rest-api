@@ -4,8 +4,7 @@ export const signalSchema = z.object({
   title: z.string(),
   code: z.string(),
   image: z.object({
-    src: z.string(),
-    alt: z.string(),
+    url: z.string(),
   }),
   category: z.enum([
     'obras',
