@@ -1,24 +1,15 @@
-import cors from 'cors'
 import express from 'express'
 import { quotationsRouter } from './routes/quotations.js'
 import { signalsRouter } from './routes/signals.js'
-import fileUpload from 'express-fileupload'
+import { corsMiddleware } from './middlewares/cors.js'
 import 'dotenv/config'
 
+// TODO:
 const app = express()
 
-// Middleware para manejar manejo de cors
-app.use(cors())
-
-// Middleware para manejar de json
+// Middlewares
+app.use(corsMiddleware())
 app.use(express.json())
-// Middleware para manejar la carga de archivos
-app.use(
-  fileUpload({
-    useTempFiles: true,
-    tempFileDir: '/tmp/',
-  }),
-)
 
 app.get('/', (req, res) => {
   res.status(200).end('<h1>Node App</h1>')

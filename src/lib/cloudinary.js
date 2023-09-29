@@ -1,33 +1,39 @@
-import { URL} from 'node:url'
+import { toKebadCase } from '../utils/index.js'
 import { v2 as cloudinary } from 'cloudinary'
 
-cloudinary.config({ 
-  cloud_name: 'tellsenales-cloud', 
-  api_key: '781191585666779', 
-  api_secret: 'Pti_on_Di9UByV40fS4gganpBO4' 
-});
-
+cloudinary.config({
+  cloud_name: 'tellsenales-cloud',
+  api_key: '781191585666779',
+  api_secret: 'Pti_on_Di9UByV40fS4gganpBO4',
+})
 
 // const { pathname} = new URL('../assets/nodejs.png', import.meta.url)
 
 // Uploads an image file
-export const uploadImage = async (imagePath) => {
+export const uploadImage = async (imagePath, { folder, fileName }) => {
   // Use the uploaded file's name as the asset's public ID and
   // allow overwriting the asset with new versions
+  const kebadFileName = toKebadCase(fileName)
   const options = {
     use_filename: true,
-    unique_filename: false,
+    unique_filename: true,
     overwrite: true,
+    folder,
+    public_id: kebadFileName,
   }
 
-  try {
-    // Upload the image
-    const result = await cloudinary.uploader.upload(imagePath, options)
-    // console.log('result',result)
-    return  result
-  } catch (error) {
-    console.error('error',error)
+  // Upload the image
+  const result = await cloudinary.uploader.upload(imagePath, options)
+  if (!result) {
+    console.log('Error uploading image to cloudinary')
+    return null
   }
+
+  return result
+}
+
+export const destroyImage = async (imageUrl) => {
+  return cloudinary.uploader.destroy(imageUrl)
 }
 
 // Gets details of an uploaded image
@@ -70,6 +76,7 @@ const createImageTag = (publicId, ...colors) => {
 
   return imageTag
 }
+
 
 // (async () => {
 //

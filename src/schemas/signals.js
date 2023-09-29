@@ -3,9 +3,6 @@ import z from 'zod'
 export const signalSchema = z.object({
   title: z.string(),
   code: z.string(),
-  image: z.object({
-    url: z.string(),
-  }),
   category: z.enum([
     'obras',
     'viales',
