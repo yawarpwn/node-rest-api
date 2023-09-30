@@ -2,20 +2,26 @@ import express from 'express'
 import cors from 'cors'
 const app = express() 
 
-const corsMiddleware = () => {
-  return cors({
-    origin: (origin, callback) => {
-      console.log(origin)
-      callback(null, true)
-    } 
-  })
+class Model {
+  static async getAll() {
+    return [{ a: '1'}, { b: '2'}]
+  }
 }
 
+class Controller {
+  constructor({ model }) {
+    this.model = model
+  }
+
+  static async getAll (req, res)  {
+    res.status(200).json(await this.model.getAll())
+  }
+
+}
+
+const controller = new Controller({model: Model})
 // app.use(corsMiddleware())
-app.get('/auth', corsMiddleware(), (req, res) => {
-  res.json({ auth: true })
-  
-})
+app.get('/auth' , controller.getAll) 
 
 app.listen(1234, () => {
   console.log('server running')

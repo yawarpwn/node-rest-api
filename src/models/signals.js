@@ -18,7 +18,7 @@ import { validatePartialSignal, validateSignal } from '../schemas/signals.js'
 const SIGNALS_TABLE = 'signals'
 export class SignalModel {
   static async getAll() {
-    const signals = await getRows({ table: 'signa' })
+    const signals = await getRows({ table: SIGNALS_TABLE})
     if (!signals) CustomError.notFound()
     return signals
   }
@@ -65,7 +65,6 @@ export class SignalModel {
 
     // en caso image proporcionado
     if (files && files.image) {
-      console.log('with files')
       await destroyImage(foundSignal.image_src)
 
       const { tempFilePath } = files.image
@@ -92,10 +91,11 @@ export class SignalModel {
         id,
       })
 
-      return updatedSignal
+      if(!updatedSignal) throw CustomError.internalServer('Error updating signal') 
+
+      return signalToUpdate 
     }
 
-    console.log('without files')
     const signalToUpdate = {
       ...foundSignal,
       ...data,

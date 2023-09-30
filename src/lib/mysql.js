@@ -1,30 +1,30 @@
 import mysql from 'mysql2/promise'
 
-const connectionString =
-  'mysql://qmv12t7ldttu2lrebays:pscale_pw_xNEWoBUAPzAiStgutRUygntDCkLo2SfLoZHO7yWITUe@aws.connect.psdb.cloud/tellsenales_database?ssl={"rejectUnauthorized":true}'
+const DATABASE_URL =
+  'mysql://76qq3xs6jwjsumuuss2n:pscale_pw_H1KwcRwIoCvRz7hEE6brRXaBazcnEoRDisQvnsmpW2C@aws.connect.psdb.cloud/tellsenales_database?ssl={"rejectUnauthorized":true}'
 
-const connection = await mysql.createConnection(connectionString)
+const connection = await mysql.createConnection(DATABASE_URL)
 
 export async function updateRow({ table, rowToUpdate, id }) {
-    // Construye la consulta SQL para actualizar el registro
-    const updateQuery = `UPDATE ${table} SET ? WHERE id = ?`
+  // Construye la consulta SQL para actualizar el registro
+  const updateQuery = `UPDATE ${table} SET ? WHERE id = ?`
 
-    // Ejecuta la consulta SQL
-    const [result] = await connection.query(updateQuery, [rowToUpdate, id])
+  // Ejecuta la consulta SQL
+  const [result] = await connection.query(updateQuery, [rowToUpdate, id])
 
-    // Verifica si se actualizó correctamente
-    if (result.affectedRows === 1) {
-      console.log(`Registro actualizado en la tabla ${table}`)
-      return true // Devuelve true para indicar que la actualización fue exitosa
-    } else {
-      console.error(`No se pudo actualizar el registro en la tabla ${table}`)
-      return false // Devuelve false para indicar que la actualización falló
-    }
+  // Verifica si se actualizó correctamente
+  if (result.affectedRows === 1) {
+    console.log(`Registro actualizado en la tabla ${table}`)
+    return true // Devuelve true para indicar que la actualización fue exitosa
+  } else {
+    console.error(`No se pudo actualizar el registro en la tabla ${table}`)
+    return false // Devuelve false para indicar que la actualización falló
+  }
 }
 
 export async function getRows({ table }) {
   const [rows] = await connection.query(`SELECT * FROM  ${table}`)
-  console.log({rows})
+  console.log({ rows })
   return rows
 }
 

@@ -2,13 +2,19 @@ import { Router } from 'express'
 import { SignalController} from '../controllers/signals.js'
 import { filesMiddleware } from '../middlewares/files.js'
 
-export const signalsRouter = Router()
+export function createSignalRoute({ signalModel}) {
+  const signalController = new SignalController({ signalModel})
 
-signalsRouter.get('/', SignalController.getAll )
-signalsRouter.get('/:id', SignalController.getById)
-signalsRouter.post('/', [filesMiddleware()] ,SignalController.create)
-signalsRouter.patch('/:id', [filesMiddleware()], SignalController.update)
-signalsRouter.delete('/:id', SignalController.delete)
+  const signalsRouter = Router()
+
+  signalsRouter.get('/', signalController.getAll )
+  signalsRouter.get('/:id', signalController.getById)
+  signalsRouter.post('/', [filesMiddleware()] ,signalController.create)
+  signalsRouter.patch('/:id', [filesMiddleware()], signalController.update)
+  signalsRouter.delete('/:id', signalController.delete)
+
+  return signalsRouter
+}
 
 
 

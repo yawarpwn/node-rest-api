@@ -1,5 +1,3 @@
-import { SignalModel } from '../models/signals.js'
-import { validatePartialSignal } from '../schemas/signals.js'
 import { STATUS } from '../constants/index.js'
 import { CustomError } from '../errors/custom-error.js'
 
@@ -15,21 +13,28 @@ const handleError = (error, res) => {
   }
 }
 
+
 export class SignalController {
-  static async getAll(_req, res) {
+
+  constructor({signalModel}) {
+    console.log({signalModel})
+    this.signalModel = signalModel
+  }
+
+  getAll = async (_req, res) => {
     try {
-      const signals = await SignalModel.getAll()
+      const signals = await this.signalModel.getAll()
       res.status(STATUS.OK).json(signals)
     } catch (error) {
       handleError(error, res)
     }
   }
 
-  static async getById(req, res) {
+   getById = async (req, res) => {
     const { id } = req.params
 
     try {
-      const signal = await SignalModel.getById({ id})
+      const signal = await this.signalModel.getById({ id})
 
       if (!signal) {
         throw CustomError.notFound(`Señal con id: ${id} no encontrado`)
@@ -41,10 +46,10 @@ export class SignalController {
     }
   }
 
-  static async delete(req, res) {
+   delete = async (req, res) => {
     try {
       const { id } = req.params
-      const deletedSignal = await SignalModel.delete({ id })
+      const deletedSignal = await this.signalModel.delete({ id })
 
       if(!deletedSignal) {
         throw CustomError.notFound(`Señal con id: ${id} no encontrado`)
@@ -57,18 +62,18 @@ export class SignalController {
     }
   }
 
-  static async create(req, res) {
+   create = async (req, res) => {
     const { body, files } = req
 
     try {
-      const createdSignal = await SignalModel.create({ input: body, files })
+      const createdSignal = await this.signalModel.create({ input: body, files })
       res.status(STATUS.CREATED).json(createdSignal)
     } catch (error) {
       handleError(error, res)
     }
   }
 
-  static async update(req, res) {
+   update = async (req, res) => {
     const {
       body,
       files,
@@ -76,7 +81,7 @@ export class SignalController {
     } = req
 
     try {
-      const udpatedSignal = await SignalModel.update({ input: body, files, id })
+      const udpatedSignal = await this.signalModel.update({ input: body, files, id })
       res.status(STATUS.OK).json(udpatedSignal)
     } catch (error) {
       handleError(error, res)
