@@ -3,7 +3,6 @@ import { quotationsRouter } from './routes/quotations.js'
 import { createSignalRoute } from './routes/signals.js'
 import { corsMiddleware } from './middlewares/cors.js'
 import { SignalModel } from '../src/models/signals.js'
-import 'dotenv/config'
 
 // TODO:
 const app = express()

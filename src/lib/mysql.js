@@ -1,9 +1,7 @@
 import mysql from 'mysql2/promise'
+import { envs } from '../config/envs.js'
 
-const DATABASE_URL =
-  'mysql://76qq3xs6jwjsumuuss2n:pscale_pw_H1KwcRwIoCvRz7hEE6brRXaBazcnEoRDisQvnsmpW2C@aws.connect.psdb.cloud/tellsenales_database?ssl={"rejectUnauthorized":true}'
-
-const connection = await mysql.createConnection(DATABASE_URL)
+const connection = await mysql.createConnection(envs.DATABASE_URL)
 
 export async function updateRow({ table, rowToUpdate, id }) {
   // Construye la consulta SQL para actualizar el registro

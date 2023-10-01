@@ -14,6 +14,9 @@ dependencies:
   dotenv:
     specifier: 16.3.1
     version: 16.3.1
+  env-var:
+    specifier: 7.4.1
+    version: 7.4.1
   express:
     specifier: 4.18.2
     version: 4.18.2
@@ -616,6 +619,11 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /env-var@7.4.1:
+    resolution: {integrity: sha512-H8Ga2SbXTQwt6MKEawWSvmxoH1+J6bnAXkuyE7eDvbGmrhIL2i+XGjzGM3DFHcJu8GY1zY9/AnBJY8uGQYPHiw==}
+    engines: {node: '>=10'}
+    dev: false
 
   /err-code@2.0.3:
     resolution: {integrity: sha512-2bmlRpNKBxT/CRmPOlyISQpNj+qSeYvcym/uT0Jx2bMOlKLtSy1ZmLuVxSEKKyor/N5yhvp/ZiG1oE3DEYMSFA==}
