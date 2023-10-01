@@ -25,7 +25,7 @@ app.use((_, res) => {
   res.end('Not Found')
 })
 
-const PORT = process.env.PORT ?? 3000
+const PORT = process.env.PORT ?? 3001
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`)

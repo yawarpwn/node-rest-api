@@ -17,7 +17,6 @@ const handleError = (error, res) => {
 export class SignalController {
 
   constructor({signalModel}) {
-    console.log({signalModel})
     this.signalModel = signalModel
   }
 
